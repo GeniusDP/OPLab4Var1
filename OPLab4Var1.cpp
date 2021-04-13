@@ -33,6 +33,7 @@ struct PIXEL {
 };
 #pragma pack(pop)
 
+//выделение памяти под матрицы с пикселями
 PIXEL** setMemory(int rows, int cols) {
     PIXEL** matrix;
     matrix = new PIXEL * [rows];
@@ -41,7 +42,7 @@ PIXEL** setMemory(int rows, int cols) {
     }
     return matrix;
 }
-
+//функция ввода
 PIXEL** inputData(BMP& Header) {
     ifstream in;
     in.open("bmp.bmp", ios::binary);
@@ -57,6 +58,7 @@ PIXEL** inputData(BMP& Header) {
     return matr;
 }
 
+//функция вывода
 void printData(BMP Header, PIXEL** newMatrix) {
     ofstream out;
     out.open("output.bmp", ios::binary);
@@ -70,6 +72,8 @@ void printData(BMP Header, PIXEL** newMatrix) {
     cerr << "Done!";
 }
 
+
+//Билинейная интерполяция
 void interpolation(PIXEL** startMatrix, BMP startFile, PIXEL** enlargedMatrix, BMP enlargedFile, double k) {
     double X, Y;
     double u, v;
