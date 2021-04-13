@@ -1,7 +1,7 @@
-#include "PixelStruct.h"
+#include "PIXEL_STRUCT.h"
 #include <string>
 #include "Picture.h"
-#include "BmpStruct.h"
+#include "BMP_HEADER_STRUCT.h"
 #include <vector>
 #include "Printer.h"
 #include <fstream>

@@ -1,6 +1,6 @@
 #pragma once
-#pragma once
-#include "PixelStruct.h"
+
+#include "PIXEL_STRUCT.h"
 /*Pixel*/
 class Pixel {
     PIXEL m_px;
