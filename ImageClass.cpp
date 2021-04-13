@@ -17,7 +17,7 @@ BMP Image::getHeader() {
 int Image::getPadding() {
     return padding;
 }
-vector< vector< PIXEL > > Image::getImage() {
+vector< vector< PIXEL > >& Image::getImage() {
     return map;
 }
 

@@ -13,6 +13,6 @@ public:
     Image(BMP Header, vector< vector< PIXEL > >& Map, int Padding);
     BMP getHeader();
     int getPadding();
-    vector< vector< PIXEL > > getImage();
+    vector< vector< PIXEL > >& getImage();
     Image interpolation(double k);
 };

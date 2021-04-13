@@ -7,14 +7,19 @@
 #include "Reader.h"
 using namespace std;
 
-int main()
+int main(int argc, char* argv[])
 {
-    double k = 4.5;
+    double k = atof(argv[1]);
+    char* originFile = argv[2];
+    char* newFile = argv[3];
+    cout << k << endl;
+    cout << originFile << endl;
+    cout << newFile << endl;
     Reader reader;
     Writer writer;
-    Image image = reader.readImageFromFile("bmp.bmp");
+    Image image = reader.readImageFromFile(originFile);
     Image newImage = image.interpolation(k);
     cout << "Enlarged!!!" << endl;
-    writer.writeImageToFile("out.bmp", newImage);
+    writer.writeImageToFile(newFile, newImage);
     return 0;
 }
