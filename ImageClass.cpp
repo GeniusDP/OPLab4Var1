@@ -40,7 +40,20 @@ Image Image::interpolation(double k) {
         newMap[i].resize(newWidth);
         calculated[i].resize(newWidth, false);
     }
-    
+    if (k < 1) {
+        for (int i = 0; i < newDepth; i++) {
+            for (int j = 0; j < newWidth; j++) {
+                newMap[i][j] = map[int(i / k)][int(j / k)];
+            }
+        }
+        for (int i = 0; i < newWidth; i++) {
+            newMap[newDepth - 1][i] = map[header.depth - 1][int(i / k)];
+        }
+        for (int i = 0; i < newDepth; i++) {
+            newMap[i][newWidth - 1] = map[int(i / k)][header.depth - 1];
+        }
+    }
+    else {
         int D = map.size(), W = map[0].size();
         for (int i = 0; i < D; i++) {
             for (int j = 0; j < W; j++) {
@@ -110,6 +123,7 @@ Image Image::interpolation(double k) {
                 j = next;
             }
         }
+    }
     Image newImage(newHeader, newMap, newPadding);
     return newImage;
 }
