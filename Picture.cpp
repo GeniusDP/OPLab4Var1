@@ -126,12 +126,12 @@ Picture Picture::enlargerVlad(double k) {
     newHeader.filesize = newFileSize;
     newHeader.width = newWidth;
     newHeader.height = newDepth;
-    vector< vector< PIXEL > > newMap(newDepth);
-    vector< vector< bool > > calculated(newDepth);
-    for (int i = 0; i < newDepth; i++) {
+    vector< vector< PIXEL > > newMap(newDepth, vector<PIXEL>(newWidth));
+    vector< vector< bool > > calculated(newDepth, vector<bool>(newWidth, false));
+    /*for (int i = 0; i < newDepth; i++) {
         newMap[i].resize(newWidth);
         calculated[i].resize(newWidth, false);
-    }
+    }*/
     if (k < 1) {
         for (int i = 0; i < newDepth; i++) {
             for (int j = 0; j < newWidth; j++) {
