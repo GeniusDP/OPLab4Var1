@@ -6,7 +6,7 @@
 #include <iostream>
 #include <stack>
 #include <cmath>
-
+#include <utility>
 #include <algorithm>
 
 using namespace std;
@@ -146,6 +146,7 @@ Picture Picture::enlargerVlad(double k) {
         }
     }
     else {
+        stack< pair<int,int> > stack;//перенесли стек сюда
         int D = m_pixel.size(), W = m_pixel[0].size();
         for (int i = 0; i < D; i++) {
             for (int j = 0; j < W; j++) {
@@ -165,52 +166,61 @@ Picture Picture::enlargerVlad(double k) {
             int j = 0;
             if (!calculated[i][j])
                 continue;
+            
             while (j < newWidth - 1) {
                 int next = j + 1;
                 while (next < newWidth && !calculated[i][next])
                     next++;
                 if (next == newWidth)
                     next--;
-                stack< Position > stack;
-                stack.push({ j, next });
+                
+                if(j+1 < next)
+                    stack.push(make_pair( j, next ));
                 while (!stack.empty()) {
-                    Position pos = stack.top();
+                    pair<int, int> pos = stack.top();
                     stack.pop();
-                    int mid = (pos.begin + pos.end) / 2;
+                    int mid = (pos.first + pos.second) / 2;
                     if (calculated[i][mid])
                         continue;
-                    newMap[i][mid].R = (newMap[i][pos.begin].R + newMap[i][pos.end].R) / 2;
-                    newMap[i][mid].G = (newMap[i][pos.begin].G + newMap[i][pos.end].G) / 2;
-                    newMap[i][mid].B = (newMap[i][pos.begin].B + newMap[i][pos.end].B) / 2;
+                    newMap[i][mid].R = (newMap[i][pos.first].R + newMap[i][pos.second].R) / 2;
+                    newMap[i][mid].G = (newMap[i][pos.first].G + newMap[i][pos.second].G) / 2;
+                    newMap[i][mid].B = (newMap[i][pos.first].B + newMap[i][pos.second].B) / 2;
                     calculated[i][mid] = true;
-                    stack.push({ pos.begin, mid });
-                    stack.push({ mid, pos.end });
+                    if(pos.first + 1 < mid)//добавил тут 
+                        stack.push(make_pair( pos.first, mid ));
+                    if(mid + 1 < pos.first)//добавил тут
+                        stack.push(make_pair( mid, pos.second ));
                 }
                 j = next;
             }
         }
         for (int i = 0; i < newWidth; i++) {
             int j = 0;
+            if (!calculated[j][i])//добавил тут
+                continue;
             while (j < newDepth - 1) {
                 int next = j + 1;
                 while (next < newDepth && !calculated[next][i])
                     next++;
                 if (next == newDepth)
                     next--;
-                stack< Position > stack;
-                stack.push({ j, next });
+                //stack< Position > stack;
+                if (j + 1 < next)
+                    stack.push(make_pair( j, next ));
                 while (!stack.empty()) {
-                    Position pos = stack.top();
+                    pair<int,int> pos = stack.top();
                     stack.pop();
-                    int mid = (pos.begin + pos.end) / 2;
+                    int mid = (pos.first + pos.second) / 2;
                     if (calculated[mid][i])
                         continue;
-                    newMap[mid][i].R = (newMap[pos.begin][i].R + newMap[pos.end][i].R) / 2;
-                    newMap[mid][i].G = (newMap[pos.begin][i].G + newMap[pos.end][i].G) / 2;
-                    newMap[mid][i].B = (newMap[pos.begin][i].B + newMap[pos.end][i].B) / 2;
+                    newMap[mid][i].R = (newMap[pos.first][i].R + newMap[pos.second][i].R) / 2;
+                    newMap[mid][i].G = (newMap[pos.first][i].G + newMap[pos.second][i].G) / 2;
+                    newMap[mid][i].B = (newMap[pos.first][i].B + newMap[pos.second][i].B) / 2;
                     calculated[mid][i] = true;
-                    stack.push({ pos.begin, mid });
-                    stack.push({ mid, pos.end });
+                    if (pos.first + 1 < mid)//добавил тут
+                        stack.push(make_pair( pos.first, mid ));
+                    if (mid + 1 < pos.first)//добавил тут
+                        stack.push(make_pair( mid, pos.second ));
                 }
                 j = next;
             }
