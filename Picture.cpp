@@ -25,10 +25,10 @@ void Picture::setPadding(int paddingValue) {
 int Picture::getPadding() {
     return m_padding;
 }
-void Picture::setPixels(vector< vector<Pixel> > pixelsToPut) {
+void Picture::setPixels(vector< vector<Pixel> >& pixelsToPut) {
     m_pixel = pixelsToPut;
 }
-void Picture::setPIXELSForVlad(vector< vector<PIXEL> > pixelsToPut) {
+void Picture::setPIXELSForVlad(vector< vector<PIXEL> >& pixelsToPut) {
     if (pixelsToPut.size()) {
         vector< vector<Pixel> > temp(pixelsToPut.size(), vector<Pixel>(pixelsToPut[0].size()));
         for (int i = 0; i < pixelsToPut.size(); i++) {
@@ -179,12 +179,12 @@ Picture Picture::enlargerVlad(double k) {
                 while (!stack.empty()) {
                     pair<int, int> pos = stack.top();
                     stack.pop();
-                    int mid = (pos.first + pos.second) / 2;
+                    int mid = (pos.first + pos.second) * 0.5;
                     if (calculated[i][mid])
                         continue;
-                    newMap[i][mid].R = (newMap[i][pos.first].R + newMap[i][pos.second].R) / 2;
-                    newMap[i][mid].G = (newMap[i][pos.first].G + newMap[i][pos.second].G) / 2;
-                    newMap[i][mid].B = (newMap[i][pos.first].B + newMap[i][pos.second].B) / 2;
+                    newMap[i][mid].R = (newMap[i][pos.first].R + newMap[i][pos.second].R) * 0.5;
+                    newMap[i][mid].G = (newMap[i][pos.first].G + newMap[i][pos.second].G) * 0.5;
+                    newMap[i][mid].B = (newMap[i][pos.first].B + newMap[i][pos.second].B) * 0.5;
                     calculated[i][mid] = true;
                     if(pos.first + 1 < mid)//добавил тут 
                         stack.push(make_pair( pos.first, mid ));
@@ -210,12 +210,12 @@ Picture Picture::enlargerVlad(double k) {
                 while (!stack.empty()) {
                     pair<int,int> pos = stack.top();
                     stack.pop();
-                    int mid = (pos.first + pos.second) / 2;
+                    int mid = (pos.first + pos.second) * 0.5;
                     if (calculated[mid][i])
                         continue;
-                    newMap[mid][i].R = (newMap[pos.first][i].R + newMap[pos.second][i].R) / 2;
-                    newMap[mid][i].G = (newMap[pos.first][i].G + newMap[pos.second][i].G) / 2;
-                    newMap[mid][i].B = (newMap[pos.first][i].B + newMap[pos.second][i].B) / 2;
+                    newMap[mid][i].R = (newMap[pos.first][i].R + newMap[pos.second][i].R) * 0.5;
+                    newMap[mid][i].G = (newMap[pos.first][i].G + newMap[pos.second][i].G) * 0.5;
+                    newMap[mid][i].B = (newMap[pos.first][i].B + newMap[pos.second][i].B) * 0.5;
                     calculated[mid][i] = true;
                     if (pos.first + 1 < mid)//добавил тут
                         stack.push(make_pair( pos.first, mid ));

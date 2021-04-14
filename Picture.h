@@ -20,8 +20,8 @@ public:
     /*setters*/
     void setHeader(BMP Header);
     void setPadding(int paddingValue);
-    void setPixels(std::vector< std::vector<Pixel> > pixelsToPut);
-    void setPIXELSForVlad(vector< vector<PIXEL> > pixelsToPut);
+    void setPixels(std::vector< std::vector<Pixel> >& pixelsToPut);
+    void setPIXELSForVlad(vector< vector<PIXEL> >& pixelsToPut);
 
     /*other methods*/
     Picture interpolate(double times);
