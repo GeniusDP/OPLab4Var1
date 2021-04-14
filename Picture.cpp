@@ -5,10 +5,8 @@
 #include "PIXEL_STRUCT.h"
 #include <iostream>
 #include <stack>
-<<<<<<< HEAD
-=======
 #include <cmath>
->>>>>>> e28799ef5851532a28e4fb6ab3fdb9c3bbea947e
+
 #include <algorithm>
 
 using namespace std;
@@ -218,7 +216,9 @@ Picture Picture::enlargerVlad(double k) {
             }
         }
     }
-    reverse(newMap.begin(), newMap.end());
+    if (sign) {
+        reverse(newMap.begin(), newMap.end());
+    }
     Picture newImage;
     newImage.setHeader(newHeader);
     newImage.setPadding(newPadding);
