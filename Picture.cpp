@@ -5,6 +5,7 @@
 #include "PIXEL_STRUCT.h"
 #include <iostream>
 #include <stack>
+#include <algorithm>
 
 using namespace std;
 
@@ -102,6 +103,11 @@ Picture Picture::interpolate(double times) {
 */
 Picture Picture::enlargerVlad(double k) {
     cerr << "Enlarging..." << endl;
+    bool sign = false;
+    if (k < 0) {
+        sign = true;
+    }
+    k = fabs(k);
     struct Position {
         int begin, end;
     };
@@ -203,6 +209,7 @@ Picture Picture::enlargerVlad(double k) {
             }
         }
     }
+    reverse(newMap.begin(), newMap.end());
     Picture newImage;
     newImage.setHeader(newHeader);
     newImage.setPadding(newPadding);
