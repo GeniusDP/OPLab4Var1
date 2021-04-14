@@ -5,6 +5,10 @@
 #include "PIXEL_STRUCT.h"
 #include <iostream>
 #include <stack>
+<<<<<<< HEAD
+=======
+#include <cmath>
+>>>>>>> e28799ef5851532a28e4fb6ab3fdb9c3bbea947e
 #include <algorithm>
 
 using namespace std;
@@ -43,6 +47,8 @@ vector< vector<Pixel> >& Picture::getPixels() {
 
 
 Picture Picture::interpolate(double times) {
+    int sgn = (times > 0 ? 1 : -1);
+    times = fabs(times);
     Picture newImage;
     cerr << "Enrarging..." << endl;
     BMP newHeader = m_pictureHeader;
@@ -91,6 +97,9 @@ Picture Picture::interpolate(double times) {
             }
             p[x][y].setPx(curPixel);
         }
+    }
+    if (sgn == -1) {
+        reverse(p.begin(), p.end());
     }
     newImage.setPixels(p);
     return newImage;
