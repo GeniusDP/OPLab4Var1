@@ -25,10 +25,10 @@ void Picture::setPadding(int paddingValue) {
 int Picture::getPadding() {
     return m_padding;
 }
-void Picture::setPixels(vector< vector<Pixel> > pixelsToPut) {
+void Picture::setPixels(vector< vector<Pixel> >& pixelsToPut) {
     m_pixel = pixelsToPut;
 }
-void Picture::setPIXELSForVlad(vector< vector<PIXEL> > pixelsToPut) {
+void Picture::setPIXELSForVlad(vector< vector<PIXEL> >& pixelsToPut) {
     if (pixelsToPut.size()) {
         vector< vector<Pixel> > temp(pixelsToPut.size(), vector<Pixel>(pixelsToPut[0].size()));
         for (int i = 0; i < pixelsToPut.size(); i++) {
@@ -126,12 +126,12 @@ Picture Picture::enlargerVlad(double k) {
     newHeader.filesize = newFileSize;
     newHeader.width = newWidth;
     newHeader.height = newDepth;
-    vector< vector< PIXEL > > newMap(newDepth);
-    vector< vector< bool > > calculated(newDepth);
-    for (int i = 0; i < newDepth; i++) {
+    vector< vector< PIXEL > > newMap(newDepth, vector<PIXEL>(newWidth));
+    vector< vector< bool > > calculated(newDepth, vector<bool>(newWidth, false));
+    /*for (int i = 0; i < newDepth; i++) {
         newMap[i].resize(newWidth);
         calculated[i].resize(newWidth, false);
-    }
+    }*/
     if (k < 1) {
         for (int i = 0; i < newDepth; i++) {
             for (int j = 0; j < newWidth; j++) {
@@ -146,7 +146,7 @@ Picture Picture::enlargerVlad(double k) {
         }
     }
     else {
-        stack< pair<int,int> > stack;//перенесли стек сюда
+        stack< pair<int,int> > stack;//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         int D = m_pixel.size(), W = m_pixel[0].size();
         for (int i = 0; i < D; i++) {
             for (int j = 0; j < W; j++) {
@@ -191,9 +191,9 @@ Picture Picture::enlargerVlad(double k) {
                 //    newMap[i][mid].G = (newMap[i][pos.first].G + newMap[i][pos.second].G) / 2;
                 //    newMap[i][mid].B = (newMap[i][pos.first].B + newMap[i][pos.second].B) / 2;
                 //    calculated[i][mid] = true;
-                //    if(pos.first + 1 < mid)//добавил тут 
+                //    if(pos.first + 1 < mid)//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ 
                 //        stack.push(make_pair( pos.first, mid ));
-                //    if(mid + 1 < pos.first)//добавил тут
+                //    if(mid + 1 < pos.first)//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
                 //        stack.push(make_pair( mid, pos.second ));
                 //}
                 j = next;
@@ -201,7 +201,7 @@ Picture Picture::enlargerVlad(double k) {
         }
         for (int i = 0; i < newWidth; i++) {
             int j = 0;
-            if (!calculated[j][i])//добавил тут
+            if (!calculated[j][i])//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
                 continue;
             while (j < newDepth - 1) {
                 int next = j + 1;
@@ -228,9 +228,9 @@ Picture Picture::enlargerVlad(double k) {
                 //    newMap[mid][i].G = (newMap[pos.first][i].G + newMap[pos.second][i].G) / 2;
                 //    newMap[mid][i].B = (newMap[pos.first][i].B + newMap[pos.second][i].B) / 2;
                 //    calculated[mid][i] = true;
-                //    if (pos.first + 1 < mid)//добавил тут
+                //    if (pos.first + 1 < mid)//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
                 //        stack.push(make_pair( pos.first, mid ));
-                //    if (mid + 1 < pos.first)//добавил тут
+                //    if (mid + 1 < pos.first)//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
                 //        stack.push(make_pair( mid, pos.second ));
                 //}
                 j = next;
