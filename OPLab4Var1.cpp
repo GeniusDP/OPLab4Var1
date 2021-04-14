@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
 
     newPrinterBogdan._print(enlargedImageBogdan);
     newPrinterVlad._print(enlargedImageVlad);
-    cerr << "Done!";
+    cout << "Done!";
     cout << "Time Bogdan = " << timeBogdan / CLOCKS_PER_SEC << "   |   Time Vlad = " << timeVlad / CLOCKS_PER_SEC << endl;
     return 0;
 }
