@@ -179,23 +179,6 @@ Picture Picture::enlargerVlad(double k) {
                     newMap[i][k].B = newMap[i][j].B + int(double(newMap[i][next].B - newMap[i][j].B) * double(k - j) / double(next - j));
                     calculated[i][k] = true;
                 }
-                //if(j+1 < next)
-                //    stack.push(make_pair( j, next ));
-                //while (!stack.empty()) {
-                //    pair<int, int> pos = stack.top();
-                //    stack.pop();
-                //    int mid = (pos.first + pos.second) / 2;
-                //    if (calculated[i][mid])
-                //        continue;
-                //    newMap[i][mid].R = (newMap[i][pos.first].R + newMap[i][pos.second].R) / 2;
-                //    newMap[i][mid].G = (newMap[i][pos.first].G + newMap[i][pos.second].G) / 2;
-                //    newMap[i][mid].B = (newMap[i][pos.first].B + newMap[i][pos.second].B) / 2;
-                //    calculated[i][mid] = true;
-                //    if(pos.first + 1 < mid)//������� ��� 
-                //        stack.push(make_pair( pos.first, mid ));
-                //    if(mid + 1 < pos.first)//������� ���
-                //        stack.push(make_pair( mid, pos.second ));
-                //}
                 j = next;
             }
         }
@@ -216,23 +199,6 @@ Picture Picture::enlargerVlad(double k) {
                     newMap[k][i].B = newMap[j][i].B + int(double(newMap[next][i].B - newMap[j][i].B) * double(k - j) / double(next - j));
                     calculated[k][i] = true;
                 }
-                //if (j + 1 < next)
-                //    stack.push(make_pair( j, next ));
-                //while (!stack.empty()) {
-                //    pair<int,int> pos = stack.top();
-                //    stack.pop();
-                //    int mid = (pos.first + pos.second) / 2;
-                //    if (calculated[mid][i])
-                //        continue;
-                //    newMap[mid][i].R = (newMap[pos.first][i].R + newMap[pos.second][i].R) / 2;
-                //    newMap[mid][i].G = (newMap[pos.first][i].G + newMap[pos.second][i].G) / 2;
-                //    newMap[mid][i].B = (newMap[pos.first][i].B + newMap[pos.second][i].B) / 2;
-                //    calculated[mid][i] = true;
-                //    if (pos.first + 1 < mid)//������� ���
-                //        stack.push(make_pair( pos.first, mid ));
-                //    if (mid + 1 < pos.first)//������� ���
-                //        stack.push(make_pair( mid, pos.second ));
-                //}
                 j = next;
             }
         }
